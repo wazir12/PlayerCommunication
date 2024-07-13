@@ -1,14 +1,21 @@
 package org.threesixtyT;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.lang.management.ManagementFactory;
 import java.net.Socket;
 
+/**
+ * Represents the client-side player in the communication system.
+ * The client player connects to the server player and handles communication.
+ */
 public class ClientPlayer {
 
-
+    private static final Logger logger = LoggerFactory.getLogger(ClientPlayer.class);
 
     private String name;
 
@@ -21,9 +28,9 @@ public class ClientPlayer {
     }
     public void startClient() {
         try {
-            // Read the server port from the file
+
             String pid = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
-            System.out.println("Client [" + name + "] is running with PID: " + pid);
+            logger.info("Client [{}] is running with PID: {}", name, pid);
 
             // Connect to the server
             try (Socket socket = new Socket("localhost", 8080);
@@ -35,18 +42,18 @@ public class ClientPlayer {
                 while (messageCounter < 10) {
                     out.println(message); // Send message to server
                     String response = in.readLine(); // Read response from server
-                    System.out.println("Client received: " + response);
+                    logger.info("Client received: {}", response);
                     message = response; // Update message for next iteration
                     messageCounter++;
                 }
             }
         } catch (Exception e) {
+            logger.error("Error in Client [{}]", name, e);
             e.printStackTrace();
         }
     }
     public static void main(String[] args) {
         ClientPlayer clientPlayer = new ClientPlayer("player 1");
-        System.out.println("Starting: " + clientPlayer.getName());
         clientPlayer.startClient();
     }
 }

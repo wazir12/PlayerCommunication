@@ -6,6 +6,25 @@ This project demonstrates communication between two players using both single-pr
 
 - Java 11 or higher
 - Maven
+## Project Structure
+        PlayerCommunication/
+        ├── pom.xml
+        ├── src/
+        │   ├── main/
+        │   │   ├── java/
+        │   │   │   └── org/
+        │   │   │       └── threesixtyT/
+        │   │   │           ├── ClientPlayer.java
+        │   │   │           ├── Player.java
+        │   │   │           ├── ServerPlayer.java
+        │   │   │           ├── SingleProcessMain.java
+        │   │   ├── resources/
+        │   │       └── scripts/
+        │   │           ├── start_client.sh
+        │   │           ├── start_server.sh
+        │   │           └── start_single_process.sh
+        └── README.md
+
 
 ## File Descriptions
 
